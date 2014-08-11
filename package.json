@@ -1,6 +1,6 @@
 {
   "name": "d-peer-to-peer",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Derby peerjs video-component",
   "main": "index.js",
   "scripts": {
