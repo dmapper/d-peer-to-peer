@@ -29,6 +29,21 @@ expressApp.
   use middleware
 ```
 
+Add component in derby-app
+
+```
+app.component require('d-peer-to-peer/single-peer/single-peer')
+
+```
+
+Use it in the view-files: f.e:
+```
+  view(name="single-peer",
+      context="{{#root._page.player.teamId}}",
+      myId="{{#root._page.player.id}}",
+      partnerId="{{#root._page.player.partnerId}}",
+      on-play="chat.scrollDown()")
+```
 
 # license
 
