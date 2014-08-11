@@ -1,0 +1,17 @@
+index:
+  .single-peer
+    if videoState == 'off'
+      .padding
+        button.icon-play.btn.-block(on-click="start()", class="{{if isPartnerOnline}} -success{{/}}") Start Video &sp;
+          if isPartnerOnline
+            | (online)
+          else
+            | (offline)
+
+    ._video-container(class="{{if videoState == 'off'}}-off{{/}}")
+      video._remoteVideo(as="remoteVideo", autoplay)
+      video._localVideo(as="localVideo", autoplay, muted="true")
+      a._stop-button(href="#", on-click="stop()")
+        span.icon-stop
+
+

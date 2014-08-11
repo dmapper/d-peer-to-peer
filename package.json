@@ -1,0 +1,15 @@
+{
+  "name": "d-peer-to-peer",
+  "version": "0.0.1",
+  "description": "Derby peerjs video-component",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "lodash": "~2.4.1 ",
+    "peer": "~0.2.6"
+  },
+  "author": "Artur Zayats <zag2art@gmail.com>",
+  "license": "MIT"
+}
