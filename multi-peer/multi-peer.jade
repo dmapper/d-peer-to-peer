@@ -1,0 +1,26 @@
+index:
+  .multi-peer
+    ._video-container
+      video._remoteVideo(as="remoteVideo", autoplay)
+      video._localVideo(as="localVideo", autoplay, muted="true")
+
+  .buffer
+
+  .multi-peer-clients
+    each clientIds as #uId
+      if #uId !== myId
+        .video-client
+          video._client-video(on-click="changeFeed(#uId)", id="{{#uId}}", autoplay, class="{{if activeClient == #uId}}-active{{/}}")
+          ._client-name
+            span {{#root.users[#uId].name}}
+
+
+    //each [0,1,2,3] as #n
+    //  .video-client
+    //    video._client-video
+    //    ._client-name
+    //      span boot{{#n}}
+
+
+
+

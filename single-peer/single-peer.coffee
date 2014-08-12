@@ -9,7 +9,7 @@ getContextId = (context) ->
 fetchVendorScript = (scriptPath, cb) ->
   return cb() if global.Peer?
 
-  console.log 'FETCH peerjs'
+#  console.log 'FETCH peerjs'
   $.getScript scriptPath, cb
 
 module.exports = class SinglePeer
@@ -46,15 +46,16 @@ module.exports = class SinglePeer
 
   create: ->
     # Make aspect ration 16/9
-    @remoteVideo.addEventListener "loadedmetadata", (event) =>
-      actualRatio = @remoteVideo.videoWidth/@remoteVideo.videoHeight
-      targetRatio = $(@remoteVideo).width()/$(@remoteVideo).height()
-      adjustmentRatio = targetRatio/actualRatio
-      $(@remoteVideo).css("-webkit-transform","scaleX(#{adjustmentRatio})")
-      $(@remoteVideo).css("-moz-transform","scaleX(#{adjustmentRatio})")
-      $(@remoteVideo).css("-ms-transform","scaleX(#{adjustmentRatio})")
-      $(@remoteVideo).css("-o-transform","scaleX(#{adjustmentRatio})")
-      $(@remoteVideo).css("transform","scaleX(#{adjustmentRatio})")
+    unless @model.get 'dontChangeRatio'
+      @remoteVideo.addEventListener "loadedmetadata", (event) =>
+        actualRatio = @remoteVideo.videoWidth/@remoteVideo.videoHeight
+        targetRatio = $(@remoteVideo).width()/$(@remoteVideo).height()
+        adjustmentRatio = targetRatio/actualRatio
+        $(@remoteVideo).css("-webkit-transform","scaleX(#{adjustmentRatio})")
+        $(@remoteVideo).css("-moz-transform","scaleX(#{adjustmentRatio})")
+        $(@remoteVideo).css("-ms-transform","scaleX(#{adjustmentRatio})")
+        $(@remoteVideo).css("-o-transform","scaleX(#{adjustmentRatio})")
+        $(@remoteVideo).css("transform","scaleX(#{adjustmentRatio})")
 
 #    console.log 'create video component!'
     fetchVendorScript '/js/peer.js', =>

@@ -1,0 +1,53 @@
+.multi-peer
+  width 100%
+  text-align center
+  flex-shrink 0
+
+  ._video-container
+    margin-top 10px
+    text-align: left;
+    position relative
+    display inline-block
+    width: 100%
+
+  ._remoteVideo
+    width: 800px
+    height: 450px
+    background-color: #eee;
+    display inline-block
+
+  ._localVideo
+    position absolute
+    left 10px
+    top 10px
+    width: 100px;
+    height: 75px
+    background-color: #eee;
+    display inline-block
+
+.multi-peer-clients
+  text-align left
+  border 1px solid lightgray
+  padding 8px
+  white-space nowrap;
+  overflow-x auto;
+
+  .video-client
+    display inline-block
+    margin-right 10px
+
+    &:last-child
+      margin-right 0
+
+  ._client-video
+    display block
+    width: 100px
+    height: 75px
+    background-color black
+    cursor pointer
+    &.-active
+      border 1px solid blue
+
+  ._client-name
+    text-align center
+    color: black
