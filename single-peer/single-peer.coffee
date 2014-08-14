@@ -76,7 +76,7 @@ module.exports = class SinglePeer
 
     return if @peerDestroyed
 
-    if !@peer.disconnected
+    unless @peer.disconnected
       @peer.listAllPeers (remotePeerIds) =>
         @model.setDiff 'isPartnerOnline', @partnerId in remotePeerIds
     else
