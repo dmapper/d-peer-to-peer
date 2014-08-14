@@ -265,10 +265,11 @@ module.exports = class SinglePeer
   _reconnect: _.debounce ->
 #    console.log 'peerjs: peer: try to reconnect'
     # Hack reconnection because it loses id of partner somehow
-    @peer._lastServerId = @myPeerId
-    @peer.id = @myPeerId
-    unless @peerDestroyed
-      @peer.reconnect()
+    if !@peer.destroyed and @peer.disconnected
+      @peer._lastServerId = @myPeerId
+      @peer.id = @myPeerId
+      unless @peerDestroyed
+        @peer.reconnect()
   , 5000
 
   peerOnDisconnected: ->
@@ -279,9 +280,13 @@ module.exports = class SinglePeer
       @_reconnect.call(this)
 
   peerOnError: (err) ->
-#    console.log 'peerjs: peer: error:', err.type, err
+    console.log 'peerjs: peer: error:', err.type, err
 
     switch err.type
       when 'peer-unavailable'
         @localStream?.stop()
         @remoteStream?.stop()
+
+    if @peer.destroyed
+      console.log 'PeerJs: Peer is destroyed, recreating the peer'
+      @createPeer()
