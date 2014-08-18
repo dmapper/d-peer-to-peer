@@ -44,13 +44,16 @@ module.exports = class MultiPeer
     @peerDestroyed = true
     @model.set 'state', 'off'
     @localStream?.stop()
-    @remoteStream?.stop()
+    @localStream = null
 
     @peer?.destroy()
 
     for clientId, client of @clients
       client?.call?.close()
       client?.stream?.stop()
+
+      client?.call = null
+      client?.stream = null
 
     console.log 'destroy!'
 
@@ -146,6 +149,8 @@ module.exports = class MultiPeer
       if videoCall?
         clientId = videoCall.metadata.clientId
         @clients[clientId]?.stream?.stop()
+        @clients[clientId]?.stream = null
+        @clients[clientId]?.call = null
 
         if @model.get('activeClient') is clientId
           #TODO Add autoselect existing client
@@ -250,6 +255,7 @@ module.exports = class MultiPeer
     switch err.type
       when 'peer-unavailable'
         @localStream?.stop()
+        @localStream = null
 
   changeFeed: (clientId) =>
     stream = @clients[clientId]?.stream;

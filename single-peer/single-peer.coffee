@@ -66,14 +66,17 @@ module.exports = class SinglePeer
   destroy: ->
     @peerDestroyed = true
     @model.set 'state', 'off'
-    @localStream.stop() if @localStream?
-    @remoteStream.stop() if @remoteStream?
+    @localStream?.stop()
+    @remoteStream?.stop()
+    @localStream = null
+    @remoteStream = null
     @peer.destroy()
 
     console.log 'destroy!'
 
   checkPartnerStatus: =>
 
+    return unless @peer?
     return if @peerDestroyed
 
     unless @peer.disconnected
@@ -92,9 +95,12 @@ module.exports = class SinglePeer
   stop: ->
     if @peer
       @videoCall?.close()
+      @videoCall = null
 
     @localStream?.stop()
     @remoteStream?.stop()
+    @localStream = null
+    @remoteStream = null
 #    @emit('stop')
 
   createPeer: ->
@@ -175,8 +181,11 @@ module.exports = class SinglePeer
 
     @videoCall.on 'close', () =>
       @model.set 'videoState', 'off'
-      @localStream.stop() if @localStream?
-      @remoteStream.stop() if @remoteStream?
+      @localStream?.stop()
+      @remoteStream?.stop()
+      @localStream = null
+      @remoteStream = null
+      @videoCall = null
 #      console.log 'peerjs: call close:'
 
     @videoCall.on 'error', (err) =>
@@ -290,6 +299,12 @@ module.exports = class SinglePeer
       when 'peer-unavailable'
         @localStream?.stop()
         @remoteStream?.stop()
+
+        @localStream = null
+        @remoteStream = null
+
+        @videoCall?.close()
+        @videoCall = null
 
     if @peer.destroyed
       console.log 'PeerJs: Peer is destroyed, recreating the peer'
