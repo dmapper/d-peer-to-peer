@@ -120,6 +120,10 @@ module.exports = class SinglePeer
 
     @registerPeerHandlers()
 
+  _createPeer: _.debounce =>
+    @createPeer()
+  , 5000
+
   registerPeerHandlers: ->
 
     @peer.on 'open',          @peerOnOpen.bind(this)
@@ -292,7 +296,7 @@ module.exports = class SinglePeer
     unless @peerDestroyed
       @_reconnect.call(this)
 
-  peerOnError: (err) ->
+  peerOnError: (err) =>
     console.log 'peerjs: peer: error:', err.type, err
 
     switch err.type
@@ -308,4 +312,4 @@ module.exports = class SinglePeer
 
     if @peer.destroyed
       console.log 'PeerJs: Peer is destroyed, recreating the peer'
-      @createPeer()
+      @_createPeer()
