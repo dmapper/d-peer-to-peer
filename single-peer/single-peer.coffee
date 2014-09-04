@@ -111,6 +111,7 @@ module.exports = class SinglePeer
 
     @peer = new Peer @myPeerId,
       host: global.env.PEERJS_HOST
+      secure: global.env.PEERJS_SECURE
       port: 9000
       debug: 3 # 3 - for deep debug
       config:

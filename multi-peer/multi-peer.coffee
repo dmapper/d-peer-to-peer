@@ -74,6 +74,7 @@ module.exports = class MultiPeer
 
     @peer = new Peer @myPeerId,
       host: global.env.PEERJS_HOST
+      secure: global.env.PEERJS_SECURE
       port: 9000
       #key: 'lwjd5qra8257b9',
       debug: 3 # 3 - for deep debug
