@@ -10,6 +10,7 @@ fetchVendorScript = (scriptPath, cb) ->
 
 module.exports = class MultiPeer
   view: __dirname + '/multi-peer'
+  style: __dirname + '/multi-peer.styl'
   name: 'multi-peer'
 
   init: ->

@@ -14,6 +14,7 @@ fetchVendorScript = (scriptPath, cb) ->
 
 module.exports = class SinglePeer
   view: __dirname + '/single-peer'
+  style: __dirname + '/single-peer.styl'
   name: 'single-peer'
 
   init: ->
