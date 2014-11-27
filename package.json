@@ -1,6 +1,6 @@
 {
   "name": "d-peer-to-peer",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Derby peerjs video-component",
   "main": "index.js",
   "prepublish": "./node_modules/.bin/coffee --compile .",
