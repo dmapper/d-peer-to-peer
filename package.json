@@ -3,9 +3,10 @@
   "version": "1.0.4",
   "description": "Derby peerjs video-component",
   "main": "index.js",
-  "prepublish": "./node_modules/.bin/coffee --compile .",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublish": "./node_modules/.bin/coffee --compile .",
+    "postpublish": "find . -name '*.coffee' -type f | grep -v 'node_modules' | sed -e 's/\\.coffee/\\.js/g' | xargs /bin/rm -f"
   },
   "dependencies": {
     "lodash": "~2.4.1"
