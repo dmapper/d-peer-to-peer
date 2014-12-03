@@ -13,8 +13,8 @@ fetchVendorScript = (scriptPath, cb) ->
   $.getScript scriptPath, cb
 
 module.exports = class SinglePeer
-  view: __dirname + '/single-peer'
-  style: __dirname + '/single-peer.styl'
+  view: __dirname
+  style: __dirname
   name: 'single-peer'
 
   init: ->
