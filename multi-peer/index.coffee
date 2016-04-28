@@ -41,22 +41,22 @@ module.exports = class MultiPeer
     fetchVendorScript '/js/peer.js', =>
       @createPeer()
 
-  destroy: ->
-    @peerDestroyed = true
-    @model.set 'state', 'off'
-    @localStream?.stop()
-    @localStream = null
+    @on 'destroy', =>
+      @peerDestroyed = true
+      @model.set 'state', 'off'
+      @localStream?.stop()
+      @localStream = null
 
-    @peer?.destroy()
+      @peer?.destroy()
 
-    for clientId, client of @clients
-      client?.call?.close()
-      client?.stream?.stop()
+      for clientId, client of @clients
+        client?.call?.close()
+        client?.stream?.stop()
 
-      client?.call = null
-      client?.stream = null
+        client?.call = null
+        client?.stream = null
 
-    console.log 'destroy!'
+      console.log 'destroy!'
 
 #  start: ->
 #    @createVideoConnection()
