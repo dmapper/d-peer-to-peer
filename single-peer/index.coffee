@@ -58,22 +58,20 @@ module.exports = class SinglePeer
         $(@remoteVideo).css("-o-transform","scaleX(#{adjustmentRatio})")
         $(@remoteVideo).css("transform","scaleX(#{adjustmentRatio})")
 
-#    console.log 'create video component!'
     fetchVendorScript '/js/peer.js', =>
       @createPeer()
 
 #    @createDataConnection()
 
-  destroy: ->
-    @peerDestroyed = true
-    @model.set 'state', 'off'
-    @localStream?.stop()
-    @remoteStream?.stop()
-    @localStream = null
-    @remoteStream = null
-    @peer.destroy()
-
-    console.log 'destroy!'
+    @on 'destroy', =>
+      @peerDestroyed = true
+      @model.set 'state', 'off'
+      @localStream?.stop()
+      @remoteStream?.stop()
+      @localStream = null
+      @remoteStream = null
+      @peer.destroy()
+      console.log 'destroy!'
 
   checkPartnerStatus: =>
 
